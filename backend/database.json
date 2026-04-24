@@ -1,0 +1,305 @@
+{
+  "orders": [
+    {
+      "id": 1777041561350,
+      "items": [
+        {
+          "id": 1,
+          "name": "Burger",
+          "price": 5.99,
+          "icon": "🍔",
+          "category": "Mains",
+          "quantity": 6
+        }
+      ],
+      "total": 37.736999999999995,
+      "createdAt": "2026-04-24T14:39:21.376Z"
+    },
+    {
+      "id": 1777041579550,
+      "items": [
+        {
+          "id": 2,
+          "name": "Pizza",
+          "price": 12.99,
+          "icon": "🍕",
+          "category": "Mains",
+          "quantity": 2
+        },
+        {
+          "id": 1,
+          "name": "Burger",
+          "price": 5.99,
+          "icon": "🍔",
+          "category": "Mains",
+          "quantity": 2
+        }
+      ],
+      "total": 39.858000000000004,
+      "createdAt": "2026-04-24T14:39:39.559Z"
+    },
+    {
+      "id": 1777042106719,
+      "items": [
+        {
+          "id": 1,
+          "name": "Burger spicy",
+          "price": 5.99,
+          "icon": "🍔",
+          "category": "burger",
+          "quantity": 2
+        }
+      ],
+      "total": 12.579,
+      "createdAt": "2026-04-24T14:48:26.734Z"
+    },
+    {
+      "items": [
+        {
+          "id": 2,
+          "name": "Pizza",
+          "price": 12.99,
+          "icon": "🍕",
+          "category": "Mains",
+          "quantity": 1
+        },
+        {
+          "id": 4,
+          "name": "Salad",
+          "price": 6.5,
+          "icon": "🥗",
+          "category": "Starters",
+          "quantity": 1
+        },
+        {
+          "id": 6,
+          "name": "Coffee",
+          "price": 2.5,
+          "icon": "☕",
+          "category": "Drinks",
+          "quantity": 1
+        }
+      ],
+      "subtotal": 21.990000000000002,
+      "vat": 1.0995000000000001,
+      "total": 23.0895,
+      "paymentMethod": "UPI",
+      "amountGiven": 30,
+      "createdAt": "2026-04-24T15:25:15.068Z",
+      "id": 1777044315068
+    },
+    {
+      "items": [
+        {
+          "id": 1,
+          "name": "Burger",
+          "price": 5.99,
+          "icon": "🍔",
+          "category": "Mains",
+          "quantity": 2
+        },
+        {
+          "id": 2,
+          "name": "Pizza",
+          "price": 12.99,
+          "icon": "🍕",
+          "category": "Mains",
+          "quantity": 2
+        }
+      ],
+      "subtotal": 37.96,
+      "vat": 1.8980000000000001,
+      "total": 39.858000000000004,
+      "paymentMethod": "Cash",
+      "amountGiven": 40,
+      "createdAt": "2026-04-24T15:27:56.074Z",
+      "id": 1777044476074
+    },
+    {
+      "items": [
+        {
+          "id": 2,
+          "name": "Pizza",
+          "price": 12.99,
+          "icon": "🍕",
+          "category": "Mains",
+          "quantity": 7
+        }
+      ],
+      "subtotal": 90.93,
+      "vat": 4.546500000000001,
+      "total": 95.4765,
+      "paymentMethod": "Cash",
+      "amountGiven": 100,
+      "createdAt": "2026-04-24T15:28:50.726Z",
+      "id": 1777044530726
+    },
+    {
+      "items": [
+        {
+          "id": 1,
+          "name": "Burger",
+          "price": 5.99,
+          "icon": "🍔",
+          "category": "Mains",
+          "quantity": 1
+        },
+        {
+          "id": 7,
+          "name": "Fries",
+          "price": 3.5,
+          "icon": "🍟",
+          "category": "Sides",
+          "quantity": 1
+        },
+        {
+          "id": 4,
+          "name": "Salad",
+          "price": 6.5,
+          "icon": "🥗",
+          "category": "Starters",
+          "quantity": 1
+        }
+      ],
+      "subtotal": 15.99,
+      "vat": 0.7995000000000001,
+      "total": 16.7895,
+      "paymentMethod": "Cash",
+      "amountGiven": 300,
+      "orderType": "Dine-In",
+      "orderDetails": {
+        "tableNumber": "2",
+        "customerName": "",
+        "phone": "",
+        "address": ""
+      },
+      "createdAt": "2026-04-24T15:32:45.250Z",
+      "id": 1777044765250
+    },
+    {
+      "items": [
+        {
+          "id": 1,
+          "name": "Burger",
+          "price": 5.99,
+          "icon": "🍔",
+          "category": "Mains",
+          "quantity": 2
+        },
+        {
+          "id": 8,
+          "name": "Sandwich",
+          "price": 7.99,
+          "icon": "🥪",
+          "category": "Mains",
+          "quantity": 2
+        }
+      ],
+      "subtotal": 27.96,
+      "vat": 1.3980000000000001,
+      "total": 29.358,
+      "paymentMethod": "Cash",
+      "amountGiven": 40,
+      "orderType": "Delivery",
+      "orderDetails": {
+        "tableNumber": "",
+        "customerName": "muhammed",
+        "phone": "636663",
+        "address": "aluhmm,ahhh"
+      },
+      "createdAt": "2026-04-24T15:33:17.915Z",
+      "id": 1777044797915
+    }
+  ],
+  "users": [
+    {
+      "id": 1777043372918,
+      "username": "muhammed",
+      "password": "123",
+      "role": "Cashier"
+    },
+    {
+      "id": 1777043439519,
+      "username": "mhd",
+      "password": "123",
+      "role": "Manager"
+    },
+    {
+      "id": 1777043482002,
+      "username": "muhammedbn",
+      "password": "123",
+      "role": "Administrator"
+    },
+    {
+      "id": 1777044726344,
+      "username": "muhammedk",
+      "password": "123",
+      "role": "Administrator"
+    }
+  ],
+  "menu": [
+    {
+      "id": 1,
+      "name": "Burger",
+      "price": 54,
+      "icon": "🍔",
+      "category": "burgers"
+    },
+    {
+      "id": 2,
+      "name": "Pizza",
+      "price": 12.99,
+      "icon": "🍕",
+      "category": "Mains"
+    },
+    {
+      "id": 3,
+      "name": "Pasta",
+      "price": 8.99,
+      "icon": "🍝",
+      "category": "Mains"
+    },
+    {
+      "id": 4,
+      "name": "Salad",
+      "price": 6.5,
+      "icon": "🥗",
+      "category": "Starters"
+    },
+    {
+      "id": 5,
+      "name": "Soda",
+      "price": 1.99,
+      "icon": "🥤",
+      "category": "Drinks"
+    },
+    {
+      "id": 6,
+      "name": "Coffee",
+      "price": 2.5,
+      "icon": "☕",
+      "category": "Drinks"
+    },
+    {
+      "id": 7,
+      "name": "Fries",
+      "price": 3.5,
+      "icon": "🍟",
+      "category": "Sides"
+    },
+    {
+      "id": 8,
+      "name": "Sandwich",
+      "price": 7.99,
+      "icon": "🥪",
+      "category": "Mains"
+    },
+    {
+      "name": "apple",
+      "price": 20,
+      "category": "juice",
+      "icon": "🍽️",
+      "id": 1777044839105
+    }
+  ]
+}
