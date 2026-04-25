@@ -73,8 +73,25 @@ function AdminPanel({ menuItems, onAddMenuItem, onDeleteMenuItem, onUpdateMenuIt
               <input type="text" value={category} onChange={e => setCategory(e.target.value)} required placeholder="e.g. Mains, Drinks" />
             </div>
             <div className="form-group">
-              <label>Image URL (or Emoji)</label>
-              <input type="text" value={icon} onChange={e => setIcon(e.target.value)} required placeholder="e.g. https://... or 🍔" />
+              <label>Image (URL, Emoji, or Upload File)</label>
+              <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                <input type="text" value={icon} onChange={e => setIcon(e.target.value)} required placeholder="e.g. https://... or 🍔" style={{ flex: 1 }} />
+                <input 
+                  type="file" 
+                  accept="image/*" 
+                  style={{ flex: 1 }}
+                  onChange={(e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                      const reader = new FileReader();
+                      reader.onloadend = () => {
+                        setIcon(reader.result);
+                      };
+                      reader.readAsDataURL(file);
+                    }
+                  }} 
+                />
+              </div>
             </div>
             <div className="form-actions" style={{ display: 'flex', gap: '0.5rem' }}>
               <button type="submit" className="add-btn">
@@ -98,7 +115,7 @@ function AdminPanel({ menuItems, onAddMenuItem, onDeleteMenuItem, onUpdateMenuIt
               {menuItems.map(item => (
                 <div key={item.id} className="manage-item">
                   <div className="manage-info">
-                    {item.icon && item.icon.startsWith('http') ? (
+                    {item.icon && (item.icon.startsWith('http') || item.icon.startsWith('data:')) ? (
                       <img src={item.icon} alt="icon" style={{ width: '40px', height: '40px', objectFit: 'cover', borderRadius: '4px' }} />
                     ) : (
                       <span className="manage-icon">{item.icon}</span>

@@ -10,21 +10,17 @@ import Dashboard from './components/Dashboard';
 import Sidebar from './components/Sidebar';
 import Payment from './components/Payment';
 
-const DEFAULT_MENU = [
-  { id: 1, name: 'Burger', price: 5.99, icon: '🍔', category: 'Mains' },
-  { id: 2, name: 'Pizza', price: 12.99, icon: '🍕', category: 'Mains' },
-  { id: 3, name: 'Pasta', price: 8.99, icon: '🍝', category: 'Mains' },
-  { id: 4, name: 'Salad', price: 6.50, icon: '🥗', category: 'Starters' },
-  { id: 5, name: 'Soda', price: 1.99, icon: '🥤', category: 'Drinks' },
-  { id: 6, name: 'Coffee', price: 2.50, icon: '☕', category: 'Drinks' },
-  { id: 7, name: 'Fries', price: 3.50, icon: '🍟', category: 'Sides' },
-  { id: 8, name: 'Sandwich', price: 7.99, icon: '🥪', category: 'Mains' },
-];
+const DEFAULT_MENU = [];
 
 function App() {
   const [user, setUser] = useState(null);
   const [view, setView] = useState('dashboard'); // 'dashboard', 'pos', 'delivery', 'admin', 'history'
+  const [checkoutStep, setCheckoutStep] = useState(false);
   const [showPayment, setShowPayment] = useState(false);
+
+  useEffect(() => {
+    setCheckoutStep(false);
+  }, [view]);
   const [orderDetails, setOrderDetails] = useState({
     tableNumber: '',
     customerName: '',
@@ -33,17 +29,36 @@ function App() {
   });
   const [menuItems, setMenuItems] = useState(DEFAULT_MENU);
 
+  const [backendStatus, setBackendStatus] = useState('checking'); // 'checking', 'connected', 'offline'
+
   useEffect(() => {
-    // Fetch menu from backend on load
-    fetch('http://localhost:5001/api/menu')
-      .then(res => res.json())
-      .then(data => {
+    // Check backend connection and fetch menu
+    const initApp = async () => {
+      try {
+        const res = await fetch('http://localhost:5001/api/menu');
+        if (!res.ok) throw new Error('Backend responded with an error');
+        const data = await res.json();
         if (data && data.length > 0) {
           setMenuItems(data);
         }
-      })
-      .catch(err => console.error('Failed to fetch menu:', err));
-  }, []);
+        setBackendStatus('connected');
+      } catch (err) {
+        console.error('Backend connection failed:', err);
+        setBackendStatus('offline');
+      }
+    };
+    
+    initApp();
+    
+    // Optional: Keep checking if offline
+    const interval = setInterval(() => {
+      if (backendStatus !== 'connected') {
+        initApp();
+      }
+    }, 5000);
+    
+    return () => clearInterval(interval);
+  }, [backendStatus]);
 
   const [cart, setCart] = useState(() => {
     const savedCart = localStorage.getItem('restaurant_cart');
@@ -211,6 +226,28 @@ function App() {
     }
   };
 
+  if (backendStatus === 'checking') {
+    return (
+      <div className="login-screen" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+        <h2>Connecting to Server...</h2>
+        <p>Please wait while we connect to the backend database.</p>
+      </div>
+    );
+  }
+
+  if (backendStatus === 'offline') {
+    return (
+      <div className="login-screen" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+        <h2 style={{ color: 'var(--danger)' }}>Backend Offline</h2>
+        <p style={{ marginBottom: '1rem' }}>The application cannot connect to the backend server (http://localhost:5001).</p>
+        <p>Please ensure the backend server and MongoDB are running.</p>
+        <button className="primary-btn" onClick={() => setBackendStatus('checking')} style={{ marginTop: '2rem' }}>
+          Retry Connection
+        </button>
+      </div>
+    );
+  }
+
   if (!user) {
     return <Login onLogin={setUser} />;
   }
@@ -234,24 +271,27 @@ function App() {
       return <OrderHistory />;
     } else {
       // 'pos' or 'delivery' view
+      // 'pos' or 'delivery' view
       return (
-        <div className="pos-layout">
-          <div className="left-pane no-print">
-            <Menu menuItems={menuItems} onAddToCart={addToCart} />
+        <div className="pos-layout" style={{ display: 'flex', gap: '1.5rem', height: '100%', flexDirection: 'row' }}>
+          <div className="left-pane no-print" style={{ flex: '2', display: 'flex', flexDirection: 'column' }}>
+            <Menu menuItems={menuItems} onAddToCart={addToCart} cart={cart} />
           </div>
-          <div className="middle-pane no-print">
-            <Cart 
-              cart={cart} 
-              onUpdateQuantity={updateQuantity} 
-              onRemove={removeFromCart} 
-              onClear={clearCart}
-              view={view}
-              orderDetails={orderDetails}
-              setOrderDetails={setOrderDetails}
-            />
-          </div>
-          <div className="right-pane print-only">
-            <Bill cart={cart} onCheckout={handleCheckoutClick} isOnline={isOnline} view={view} orderDetails={orderDetails} />
+          <div className="right-section" style={{ flex: '1', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+            <div className="middle-pane no-print" style={{ flex: '1', display: 'flex', flexDirection: 'column' }}>
+              <Cart 
+                cart={cart} 
+                onUpdateQuantity={updateQuantity} 
+                onRemove={removeFromCart} 
+                onClear={() => { clearCart(); }}
+                view={view}
+                orderDetails={orderDetails}
+                setOrderDetails={setOrderDetails}
+              />
+            </div>
+            <div className="right-pane print-only" style={{ flex: 'none', display: 'flex', flexDirection: 'column' }}>
+              <Bill cart={cart} onCheckout={handleCheckoutClick} isOnline={isOnline} view={view} orderDetails={orderDetails} />
+            </div>
           </div>
         </div>
       );
